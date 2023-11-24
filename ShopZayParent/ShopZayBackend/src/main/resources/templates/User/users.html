@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{index::head}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div th:replace="~{index::header}"></div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">User</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Manager users</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div th:if="${message !=null }" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <!-- Main content -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Photos</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Roles</th>
+                <th>Enabled</th>
+                <th colspan="2">
+                    <a th:href="@{/user_create}">
+                        <button type="button" value="" class="btn btn-block btn-success">Create New User</button>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${listUsers}">
+                <td>[[${user.id}]]</td>
+                <td>
+                    <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x"></span>
+                    <img th:if="${user.photos != null}" th:src="@{user.photosImagePath}"/>
+                </td>
+                <td>[[${user.email}]]</td>
+                <td>[[${user.firstname}]]</td>
+                <td>[[${user.lastname}]]</td>
+                <td>[[${user.roles}]]</td>
+                <td>
+                    <a th:if="${user.enabled}" class="fas fa-check-circle fa-2x " style="color: green;"></a>
+                    <a th:if="${!user.enabled}" class="fas fa-check-circle fa-2x " style="color: darkgrey;"></a>
+                </td>
+                <td>
+                    <a th:href="@{'/edit_'+ ${user.id}}" type="button"
+                       class="btn btn-block btn-danger btn-lg">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{'/users/delete/'+${user.id}}" type="button"
+                       class="btn btn-block btn-warning btn-lg">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">«</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="~{index::script}"></div>
+</body>
+</html>

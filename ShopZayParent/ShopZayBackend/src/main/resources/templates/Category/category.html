@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{index::head}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div th:replace="~{index::header}"></div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Category</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Manager Category</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <div th:if="${message !=null }" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category Image</th>
+                <th>Category Name</th>
+                <th>Alias</th>
+                <th>Enabled</th>
+                <th colspan="2">
+                    <a th:href="@{/categories_create}">
+                        <button type="button" value="" class="btn btn-block btn-success">Create New User</button>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category:${listCategories}">
+                <td>[[${category.id}]]</td>
+                <td>[[${category.image}]]</td>
+                <td>[[${category.name}]]</td>
+                <td>[[${category.alias}]]</td>
+                <td>
+                    <a th:if="${category.enabled}" class="fas fa-check-circle fa-2x " style="color: green;"></a>
+                    <a th:if="${!category.enabled}" class="fas fa-check-circle fa-2x " style="color: darkgrey;"></a>
+                </td>
+
+                <!--
+                <td>
+                    <a th:if="${user.enabled}" class="fas fa-check-circle fa-2x " style="color: green;"></a>
+                    <a th:if="${!user.enabled}" class="fas fa-check-circle fa-2x " style="color: darkgrey;"></a>
+                </td>
+                -->
+                <td>
+                    <a th:href="@{/category_edit_+{id}}" type="button" class="btn btn-block btn-danger btn-lg">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{'/category_delete/'+${category.id}}" type="button" class="btn btn-block btn-warning btn-lg">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="~{index::script}"></div>
+</body>
+</html>
